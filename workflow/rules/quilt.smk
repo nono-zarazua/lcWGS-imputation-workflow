@@ -536,13 +536,16 @@ rule quilt_stats_for_het_homalt:
     output:
         stats=os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
+            "qcs",
             f"{config['run_name']}_down{{depth}}x_sample_stats.txt"),
         ratios=os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
+            "qcs",
             f"{config['run_name']}_down{{depth}}x_clean_ratios.tsv")
     log:
         os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
+            "qcs",
             f"{config['run_name']}_down{{depth}}x_clean_ratios.tsv.log")
     conda:
         "../envs/quilt.yaml"
@@ -573,12 +576,16 @@ rule quilt_pruning_and_pca:
         afreq=config["vcf_qc"]["afreq"]
     output:
         eigenvec=os.path.join(OUTDIR_QUILT2,
-            "refsize{size}", f"{config['run_name']}_down{{depth}}x_clean_pca.eigenvec"),
+            "refsize{size}",
+            "qcs",
+            f"{config['run_name']}_down{{depth}}x_clean_pca.eigenvec"),
         eigenval=os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
+            "qcs",
             f"{config['run_name']}_down{{depth}}x_clean_pca.eigenval"),
         kinship=os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
+            "qcs",
             f"{config['run_name']}_down{{depth}}x_clean_kinship.kin0")
     params:
         prefix=os.path.join(OUTDIR_QUILT2,
@@ -587,6 +594,7 @@ rule quilt_pruning_and_pca:
     log:
         os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
+            "qcs",
             f"{config['run_name']}_down{{depth}}x_clean_pca.log")
     conda:
         "../envs/quilt.yaml"
@@ -672,6 +680,8 @@ rule quilt_render_qc_report:
         report=os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
             f"{config['run_name']}_down{{depth}}x_QC_Report.html")
+    params:
+        batch=config['run_name']
     log:
         os.path.join(OUTDIR_QUILT2,
             "refsize{size}",
