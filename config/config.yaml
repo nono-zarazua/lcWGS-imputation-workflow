@@ -7,7 +7,10 @@ genome:
   build: GRCh38
   refpanel: config/refpanel.tsv
 
-historic_vcf: "data/historic/historic_samples.vcf.gz"
+vcf_qc:
+  historic_vcf: "data/historic/historic_samples.vcf.gz"
+  prune_in: "data/pruned/qc_pruning.prune.in"
+  afreq: "data/pruned/ref_panel_freqs.afreq"
 
 downsample: [0]
 

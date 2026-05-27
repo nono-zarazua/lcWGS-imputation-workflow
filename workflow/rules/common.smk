@@ -224,8 +224,20 @@ def get_quilt_mspbwt_results():
         size=config["refsize"],
         sample=SAMPLES
     )
-    
-    return genome_targets + split_targets
+   
+    qc_targets = expand(
+        rules.quilt_stats_for_het_homalt.output,
+        size=config["refsize"],
+        depth=config["downsample"],
+    )
+
+    pca_targets = expand(
+        rules.quilt_pruning_and_pca.output,
+        size=config["refsize"],
+        depth=config["downsample"],
+    )
+ 
+    return genome_targets + split_targets + qc_targets + pca_targets
 
 def get_glimpse_results():
     return expand(
